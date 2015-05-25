@@ -1,12 +1,12 @@
 #
-# OMNeT++/OMNEST Makefile for trabalho3
+# OMNeT++/OMNEST Makefile for MDR-Trabalho-3
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -L/Users/filipe/Downloads/omnetpp-4.6/samples/inet/out/$$\(CONFIGNAME\)/src -linet -DINET_IMPORT -KINET_PROJ=/Users/filipe/Downloads/omnetpp-4.6/samples/inet
+#  opp_makemake -f --deep -L../../inet/out/$$\(CONFIGNAME\)/src -linet -DINET_IMPORT -KINET_PROJ=../../inet
 #
 
 # Name of target to be created (-o option)
-TARGET = trabalho3$(EXE_SUFFIX)
+TARGET = MDR-Trabalho-3$(EXE_SUFFIX)
 
 # User interface (uncomment one) (-u option)
 USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
@@ -20,8 +20,8 @@ INCLUDE_PATH = -I.
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = -L$(INET_PROJ)/out/$(CONFIGNAME)/src  -linet
-LIBS += -Wl,-rpath,`abspath $(INET_PROJ)/out/$(CONFIGNAME)/src`
+LIBS = -L../../inet/out/$(CONFIGNAME)/src  -linet
+LIBS += -Wl,-rpath,`abspath ../../inet/out/$(CONFIGNAME)/src`
 
 # Output directory
 PROJECT_OUTPUT_DIR = ../out
@@ -35,7 +35,7 @@ OBJS =
 MSGFILES =
 
 # Other makefile variables (-K)
-INET_PROJ=/Users/filipe/Downloads/omnetpp-4.6/samples/inet
+INET_PROJ=../../inet
 
 #------------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ msgheaders: $(MSGFILES:.msg=_m.h)
 clean:
 	$(qecho) Cleaning...
 	$(Q)-rm -rf $O
-	$(Q)-rm -f trabalho3 trabalho3.exe libtrabalho3.so libtrabalho3.a libtrabalho3.dll libtrabalho3.dylib
+	$(Q)-rm -f MDR-Trabalho-3 MDR-Trabalho-3.exe libMDR-Trabalho-3.so libMDR-Trabalho-3.a libMDR-Trabalho-3.dll libMDR-Trabalho-3.dylib
 	$(Q)-rm -f ./*_m.cc ./*_m.h
 
 cleanall: clean
