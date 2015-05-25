@@ -12,6 +12,7 @@ import inet.nodes.ethernet.EtherSwitch;
 import inet.nodes.inet.Router;
 import inet.nodes.inet.StandardHost;
 import inet.nodes.inet.WirelessHost;
+import inet.nodes.internetcloud.InternetCloud;
 import inet.nodes.ospfv2.OSPFRouter;
 import inet.nodes.wireless.AccessPoint;
 import inet.world.radio.ChannelControl;
@@ -20,55 +21,57 @@ network Trabalho3
 {
     parameters:
         int numHosts;
-        int numAPs;
+        int numAPs=1;
+        @display("bgb=829,412");
     submodules:
         hostNor[numHosts]: WirelessHost {
-            @display("r=100,,#707070;p=146,31");
+            @display("r=,,#707070;p=100,10");
         }
         hostSul[numHosts]: WirelessHost {
-            @display("r=100,,#707070;p=146,348");
+            @display("r=,,#707070;p=100,110");
         }
         apNor[numAPs]: AccessPoint {
-            @display("p=269,30;r=100,,#707070");
+            @display("p=150,10;r=50,,#707070");
 
         }
         apSul[numAPs]: AccessPoint {
-            @display("p=269,349;r=100,,#707070");
+            @display("p=150,110;r=50,,#707070");
 
         }
         configurator: IPv4NetworkConfigurator {
             config = xml("<config><interface hosts='gateway' names='eth0' address='192.168.0.1' netmask='255.255.255.0'/><interface names='eth*' address='192.168.x.x' netmask='255.255.255.0'/></config>");
-            @display("p=559,31");
+            @display("p=517,32");
         }
         router: Router {
-            @display("p=719,128");
+            @display("p=517,307");
         }
         socialNetwork: StandardHost {
-            @display("p=1006,333");
+            @display("p=638,272");
         }
         multimediaServer: StandardHost {
-            @display("p=1006,70");
+            @display("p=638,129");
         }
         voipServer: StandardHost {
-            @display("p=1006,193");
+            @display("p=638,193");
         }
         dhcpServer: StandardHost {
-            @display("p=637,31");
+            @display("p=434,110");
         }
         channelControl: ChannelControl {
-            @display("p=728,30");
+            @display("p=414,31");
             numChannels = 3;
         }
         switch: EtherSwitch {
-            @display("p=637,125");
+            @display("p=434,192");
         }
         infoServer: StandardHost {
-            @display("p=637,333");
+            @display("p=434,307");
         }
+
     connections:
-        router.ethg++ <--> Eth100G <--> socialNetwork.ethg++;
-        router.ethg++ <--> Eth100G <--> multimediaServer.ethg++;
-        router.ethg++ <--> Eth100G <--> voipServer.ethg++;
+        switch.ethg++ <--> Eth100M <--> socialNetwork.ethg++;
+        switch.ethg++ <--> Eth100M <--> voipServer.ethg++;
+        switch.ethg++ <--> Eth100M <--> multimediaServer.ethg++;
         for i=0..numAPs-1 {
             switch.ethg++ <--> Eth100M <--> apNor[i].ethg++;
         }
