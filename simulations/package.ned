@@ -21,7 +21,7 @@ network Trabalho3
 {
     parameters:
         int numHosts;
-        int numAPs=1;
+        int numAPs = 1;
         @display("bgb=829,412");
     submodules:
         hostNor[numHosts]: WirelessHost {
@@ -40,19 +40,20 @@ network Trabalho3
         }
         configurator: IPv4NetworkConfigurator {
             config = xml("<config><interface hosts='gateway' names='eth0' address='192.168.0.1' netmask='255.255.255.0'/><interface names='eth*' address='192.168.x.x' netmask='255.255.255.0'/></config>");
+            addStaticRoutes = true;
             @display("p=517,32");
         }
         router: Router {
-            @display("p=517,307");
+            @display("p=567,193");
         }
         socialNetwork: StandardHost {
-            @display("p=638,272");
+            @display("p=756,319");
         }
         multimediaServer: StandardHost {
-            @display("p=638,129");
+            @display("p=756,82");
         }
         voipServer: StandardHost {
-            @display("p=638,193");
+            @display("p=756,193");
         }
         dhcpServer: StandardHost {
             @display("p=434,110");
@@ -69,9 +70,9 @@ network Trabalho3
         }
 
     connections:
-        switch.ethg++ <--> Eth100M <--> socialNetwork.ethg++;
-        switch.ethg++ <--> Eth100M <--> voipServer.ethg++;
-        switch.ethg++ <--> Eth100M <--> multimediaServer.ethg++;
+        router.ethg++ <--> Eth100G <--> socialNetwork.ethg++;
+        router.ethg++ <--> Eth100G <--> voipServer.ethg++;
+        router.ethg++ <--> Eth100G <--> multimediaServer.ethg++;
         for i=0..numAPs-1 {
             switch.ethg++ <--> Eth100M <--> apNor[i].ethg++;
         }
