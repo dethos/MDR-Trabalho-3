@@ -39,8 +39,7 @@ network Trabalho3
 
         }
         configurator: IPv4NetworkConfigurator {
-            config = xml("<config><interface hosts='gateway' names='eth0' address='192.168.0.1' netmask='255.255.255.0'/><interface names='eth*' address='192.168.x.x' netmask='255.255.255.0'/></config>");
-            addStaticRoutes = true;
+            config = xml("<config><interface hosts='router' names='eth0' address='192.168.0.1' netmask='255.255.255.0'/><interface names='eth*' address='192.168.x.x' netmask='255.255.255.0'/></config>");
             @display("p=517,32");
         }
         router: Router {
@@ -70,9 +69,11 @@ network Trabalho3
         }
 
     connections:
+        router.ethg++ <--> Eth100M <--> switch.ethg++;
         router.ethg++ <--> Eth100G <--> socialNetwork.ethg++;
         router.ethg++ <--> Eth100G <--> voipServer.ethg++;
         router.ethg++ <--> Eth100G <--> multimediaServer.ethg++;
+        
         for i=0..numAPs-1 {
             switch.ethg++ <--> Eth100M <--> apNor[i].ethg++;
         }
@@ -80,6 +81,5 @@ network Trabalho3
             switch.ethg++ <--> Eth100M <--> apSul[i].ethg++;
         }
         dhcpServer.ethg++ <--> Eth100M <--> switch.ethg++;
-        router.ethg++ <--> Eth100M <--> switch.ethg++;
         infoServer.ethg++ <--> Eth100M <--> switch.ethg++;
 }
